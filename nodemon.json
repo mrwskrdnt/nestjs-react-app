@@ -1,6 +1,6 @@
 {
   "watch": [
-    "src"
+    "*"
   ],
   "execMap": {
     "ts": "ts-node --project tsconfig.server.json"

@@ -28,7 +28,7 @@
     "experimentalDecorators": true
   },
   "include": [
-    "views"
+    "client"
   ],
   "exclude": [
     "**/*.spec.ts",

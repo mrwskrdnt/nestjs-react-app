@@ -1,6 +1,5 @@
-const config = {
+module.exports = {
+  id: 'emotion',
   distDir: 'dist/.ssr',
-  viewsDir: 'views',
+  viewsDir: 'client/pages',
 };
-
-export default config;

@@ -1,0 +1,1 @@
+export { RenderExceptionsFilter } from './render-exceptions.filter'
