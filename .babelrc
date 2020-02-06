@@ -1,6 +1,7 @@
 {
   "presets": [
-    "@react-ssr/nestjs-express/babel"
+    "@react-ssr/nestjs-express/babel",
+    "@emotion/babel-preset-css-prop"
   ],
   "plugins": [
     "emotion"

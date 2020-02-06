@@ -12,7 +12,7 @@
     "incremental": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "jsx": "preserve",
+    "jsx": "react",
     "lib": [
       "dom",
       "dom.iterable",
@@ -25,7 +25,8 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "jsxFactory": "jsx"
   },
   "include": [
     "client"

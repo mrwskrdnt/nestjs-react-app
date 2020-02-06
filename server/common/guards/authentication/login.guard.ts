@@ -8,16 +8,16 @@ import { AuthGuard } from '@nestjs/passport';
 @Injectable()
 export class LoginGuard extends AuthGuard('local') {
   async canActivate(context: ExecutionContext) {
-    const request = context.switchToHttp().getRequest();
-
-    await super.logIn(request);
-
     const result = (await super.canActivate(context)) as boolean;
-
-    if (!result) {
-      throw new UnauthorizedException();
-    }
-
+    const request = context.switchToHttp().getRequest();
+    await super.logIn(request);
     return result;
+  }
+
+  handleRequest(err: any, user: any) {
+    if (err || !user) {
+      throw err || new UnauthorizedException('Invalid email or password.');
+    }
+    return user;
   }
 }

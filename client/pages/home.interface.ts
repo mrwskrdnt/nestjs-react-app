@@ -1,6 +1,7 @@
 import { PetKind } from './enum';
 
 export interface PetsListItemProps {
+  id: string,
   name: string,
   kind: PetKind
 }

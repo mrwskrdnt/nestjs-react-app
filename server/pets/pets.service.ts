@@ -26,9 +26,9 @@ export class PetsService {
   }
 
   async getUsersPet(id: string, userId: string): Promise<PetDto|null> {
-    const pet = await this.petModel.findOne({ id, user: userId })
+    const pet = await this.petModel.findOne({ _id: id, user: userId })
       .populate('user', ['id', 'username'])
-      .select(['id', 'name', 'kind', 'user', 'birthday']);
+      .select(['id', 'name', 'kind', 'user', 'birthday', 'picUrl']);
 
     return pet && pet.toObject();
   }

@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import * as React from 'react';
 import { PageLayout } from '../components/page-layout';
 import { ErrorPageProps } from './error.interface';

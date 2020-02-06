@@ -1,12 +1,6 @@
 import { boxShadow, styled } from 'radiant-ui';
 
-export const root = `
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-export const Header = styled.header`
+export const Root = styled.header`
   display: flex;
   align-items: center;
   min-height: 70px;
@@ -25,11 +19,4 @@ export const Header = styled.header`
 export const title = `
   flex: 1;
   margin: 0 !important;
-`;
-
-export const main = `
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 3rem 30px;
 `;

@@ -6,7 +6,7 @@ import { useAuth } from '../../effects/auth';
 import * as S from './login-form.styles'
 
 const LoginForm: React.FC = () => {
-  const { login } = useAuth();
+  const { state, login } = useAuth();
 
   const formAction = React.useCallback(values => {
     login(values);
@@ -21,7 +21,7 @@ const LoginForm: React.FC = () => {
         }}
       >
         {({ handleSubmit }) => (
-          <RegularForm onSubmit={handleSubmit(formAction)}>
+          <RegularForm large onSubmit={handleSubmit(formAction)}>
             <RegularForm.FieldSet>
               <FieldDrawer name="username">
                 {fieldProps => (
@@ -55,6 +55,9 @@ const LoginForm: React.FC = () => {
             <RegularForm.PrimaryButton type="submit">
               Login
             </RegularForm.PrimaryButton>
+            {state.error && (
+              <RegularForm.Message variant="error">{state.error}</RegularForm.Message>
+            )}
           </RegularForm>
         )}
       </FormDrawer>

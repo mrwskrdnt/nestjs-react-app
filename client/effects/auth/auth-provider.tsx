@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core';
 import * as React from 'react';
 import { authReducer } from './auth-reducer';
 import { IAuthState } from './auth-context.interface';
@@ -8,6 +10,7 @@ import {
 } from '../../services/auth-service';
 import { AuthActionType } from './enum';
 import { AuthContext } from './auth-context';
+import { AUTH_STORAGE_KEY } from './const';
 
 const AuthProvider: React.FC = props => {
   const [state, dispatch] = React.useReducer<React.Reducer<IAuthState, IAuthAction>>(authReducer,  {
@@ -35,12 +38,12 @@ const AuthProvider: React.FC = props => {
         }
       });
 
-      location.assign('/home');
+      location.replace('/');
     } catch (e) {
       dispatch({
         type: AuthActionType.LOGIN_ERROR,
         payload: {
-          error: e.response.data.error,
+          error: e.response.data.message,
         }
       });
     }
@@ -51,12 +54,12 @@ const AuthProvider: React.FC = props => {
     try {
       await authService.logout();
       dispatch({ type: AuthActionType.LOGOUT_SUCCESS });
-      location.assign('/login');
+      location.replace('/login');
     } catch (e) {
       dispatch({
         type: AuthActionType.LOGOUT_ERROR,
         payload: {
-          error: e.response.data.error,
+          error: e.response.data.message,
         }
       });
     }
@@ -69,8 +72,7 @@ const AuthProvider: React.FC = props => {
   }), [state, login, logout]);
 
   React.useEffect(() => {
-    const storageKey = 'auth';
-    const json = sessionStorage.getItem(storageKey);
+    const json = sessionStorage.getItem(AUTH_STORAGE_KEY);
 
     if (json) {
       dispatch({
@@ -78,12 +80,17 @@ const AuthProvider: React.FC = props => {
         payload: JSON.parse(json),
       })
     }
-
-    return () => {
-      const { userId, username, roles } = state;
-      sessionStorage.setItem(storageKey, JSON.stringify({ userId, username, roles }))
-    }
   }, []);
+
+  React.useEffect(() => {
+    const { userId, username, roles } = state;
+    const newState = JSON.stringify({ userId, username, roles });
+    const currentState = sessionStorage.getItem(AUTH_STORAGE_KEY);
+
+    if (newState !== currentState) {
+      sessionStorage.setItem(AUTH_STORAGE_KEY, newState)
+    }
+  }, [state]);
 
   return (
     <AuthContext.Provider value={context}>

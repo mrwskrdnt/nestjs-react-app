@@ -1,5 +1,5 @@
 export enum PetKind {
-  CAT = 'cat',
-  DOG = 'dog',
-  PARROT = 'parrot',
+  CAT = 'Cat',
+  DOG = 'Dog',
+  PARROT = 'Parrot',
 }

@@ -28,7 +28,6 @@ export class AppController {
 
   @Get('/login')
   @Render('login')
-  @UseFilters(RenderExceptionsFilter)
   getLogin(@Query('from') from?: string): LoginPageDto {
     return { from };
   }
@@ -36,7 +35,6 @@ export class AppController {
   @UseGuards(AuthenticatedGuard)
   @Get('/')
   @Render('home')
-  @UseFilters(RenderExceptionsFilter)
   async getUser(@Req() req: Request): Promise<HomePageDto> {
     const { username, id } = req.user as AuthorizedUserDto;
     const pets = await this.petsService.getUsersPets(id);
@@ -49,13 +47,13 @@ export class AppController {
   @UseGuards(AuthenticatedGuard)
   @Get('/pets/:id')
   @Render('pet')
-  @UseFilters(RenderExceptionsFilter)
   async getPet(
     @Param('id') id: string,
     @Req() req: Request,
     @Res() res: Response
   ): Promise<PetDto|void> {
     const { id: userId } = req.user as AuthorizedUserDto;
+    console.log(id, userId);
     const pet = await this.petsService.getUsersPet(id, userId);
     if (pet === null) {
       throw new BadRequestException();
@@ -65,7 +63,6 @@ export class AppController {
 
   @Get('/error')
   @Render('error')
-  @UseFilters(RenderExceptionsFilter)
   async getErrorPage(@Query() query: ErrorPageDto): Promise<ErrorPageDto> {
     return query;
   }
